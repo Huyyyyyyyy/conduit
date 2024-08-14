@@ -1,13 +1,11 @@
-import UserSigninContext, {
-  UserSigninContextType,
-} from "../../context/UserSigninContext";
+import UserContext, { UserContextType } from "../../context/UserContext";
+import { TUserLogin, TCreateUser } from "../../types/user";
 import Banner from "../layout/Container/Banner/Banner";
 import Content from "../layout/Container/Content/Content";
 import Footer from "../layout/Footer/Footer";
 import Header from "../layout/Header/Header";
 
-
-const currentUser: UserSigninContextType = {
+const currentUser: UserContextType = {
   user: {
     id: 1,
     email: "gia.huy@gmail.com",
@@ -20,15 +18,22 @@ const currentUser: UserSigninContextType = {
     updatedAt: new Date(),
   },
   isLogin: true,
+  get: function (userLoginType: TUserLogin): void {
+    throw new Error("Function not implemented.");
+  },
+  create: function (userType: TCreateUser): void {
+    throw new Error("Function not implemented.");
+  },
+  status: "idle",
 };
 
 const App = () => {
   return (
     <>
       <div className="container">
-        <UserSigninContext.Provider value={currentUser}>
+        <UserContext.Provider value={currentUser}>
           <Header></Header>
-        </UserSigninContext.Provider>
+        </UserContext.Provider>
         <Banner></Banner>
         <Content></Content>
         <Footer></Footer>

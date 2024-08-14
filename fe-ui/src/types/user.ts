@@ -8,3 +8,18 @@ export type TUser = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TCreateUser = {
+  email: string;
+  userName: string | null;
+  avatar: string | null;
+  shortBio: string | null;
+  password: string;
+};
+
+export type TUserLogin = {
+  email: string;
+  password: string;
+};
+
+export type TUserStatus = "idle" | "loading" | "error" | "success";
