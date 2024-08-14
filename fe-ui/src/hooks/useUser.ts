@@ -5,6 +5,7 @@ import { createUser, getUser } from "../apis/user";
 export function useUser() {
   const [status, setStatus] = useState<TUserStatus>("idle");
   const [user, setUser] = useState<TUser | null>(null);
+  const [login, setLogin] = useState(false);
 
   const get = async (userLoginType: TUserLogin) => {
     try {
@@ -12,6 +13,7 @@ export function useUser() {
       const user = await getUser(userLoginType);
       setUser(user);
       setStatus("success");
+      setLogin(true);
     } catch (error) {
       setStatus("error");
     }
@@ -23,10 +25,11 @@ export function useUser() {
       const user = await createUser(userCreateType);
       setUser(user);
       setStatus("success");
+      setLogin(true);
     } catch (error) {
       setStatus("error");
     }
   };
 
-  return { user, setUser, get, create, status };
+  return { user, setUser, get, create, status, isLogin: login };
 }

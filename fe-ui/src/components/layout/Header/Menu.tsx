@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
 import { CommonProps } from "@mui/material/OverridableComponent";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import UserSigninContext from "../../../context/UserContext";
+import { TUserLogin } from "../../../types/user";
 
 const styleButton: CommonProps = {
   style: {
@@ -11,27 +12,26 @@ const styleButton: CommonProps = {
   },
 };
 
+const userLogin: TUserLogin = {
+  email: "gia.huy@gmail.com",
+  password: "h0397363542H@",
+};
+
 const Menu = () => {
-  const { user, isLogin } = useContext(UserSigninContext);
-  const [login, setLogin] = useState(isLogin);
+  const { user, get, isLogin } = useContext(UserSigninContext);
 
-  const handleLogin = () => {
-    setLogin(login ? false : true);
-  };
-
-  return login ? (
+  return isLogin ? (
     <>
+      {console.log(user)}
       <Button {...styleButton}>Home</Button>
       <Button {...styleButton}>New Article</Button>
       <Button {...styleButton}>Setting</Button>
-      <Button {...styleButton} onClick={handleLogin}>
-        {user?.userName}
-      </Button>
+      <Button {...styleButton}>{user?.userName}</Button>
     </>
   ) : (
     <>
       <Button {...styleButton}>Home</Button>
-      <Button {...styleButton} onClick={handleLogin}>
+      <Button {...styleButton} onClick={() => get(userLogin)}>
         Sign in
       </Button>
       <Button {...styleButton}>Sign up</Button>
