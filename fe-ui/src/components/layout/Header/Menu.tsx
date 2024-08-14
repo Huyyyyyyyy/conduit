@@ -22,7 +22,6 @@ const Menu = () => {
 
   return isLogin ? (
     <>
-      {console.log(user)}
       <Button {...styleButton}>Home</Button>
       <Button {...styleButton}>New Article</Button>
       <Button {...styleButton}>Setting</Button>
