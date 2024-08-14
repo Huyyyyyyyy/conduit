@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid()) @map("user_id") @db.Uuid()
+  email     String   @map("user_email") @db.VarChar(255)
+  userName  String?  @default("unknown user") @map("username") @db.VarChar(255)
+  avatar    String?  @default("https://assets.codepen.io/1524299/internal/avatars/users/default.png?fit=crop&format=auto&height=512&version=1507654440&width=512") @map("user_avatar") @db.VarChar()
+  shortBio  String?  @default("no bio yet") @map("short_bio") @db.Text()
+  password  String   @map("user_password") @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+}
