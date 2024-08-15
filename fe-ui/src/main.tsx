@@ -2,13 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
-import App from "./components/App/App";
-
+import AppRouter from "./routes/AppRouter";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ReactQueryProvider>
-      <App></App>
+      <AppRouter />
     </ReactQueryProvider>
   </StrictMode>
 );

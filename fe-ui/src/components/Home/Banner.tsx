@@ -7,6 +7,7 @@ const Banner = () => {
       height: "150px",
       backgroundColor: "#5cb85c",
       textAlign: "center",
+      color: "#fefefe",
     },
   };
   return (
