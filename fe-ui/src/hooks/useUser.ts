@@ -1,35 +1,49 @@
 import { useState } from "react";
-import { TCreateUser, TUser, TUserLogin, TUserStatus } from "../types/user";
-import { createUser, getUser } from "../apis/user";
+import { TUser, TUserLogin, TUserStatus } from "../types/user";
+import { getUser } from "../apis/user";
 
 export function useUser() {
   const [status, setStatus] = useState<TUserStatus>("idle");
   const [user, setUser] = useState<TUser | null>(null);
-  const [login, setLogin] = useState(false);
+  const [userLogin, setUserLogin] = useState<TUserLogin>({
+    email: "",
+    password: "",
+  });
+  const [loginStatus, setLoginStatus] = useState("");
 
-  const get = async (userLoginType: TUserLogin) => {
-    try {
-      setStatus("loading");
-      const user = await getUser(userLoginType);
-      setUser(user);
-      setStatus("success");
-      setLogin(true);
-    } catch (error) {
-      setStatus("error");
+  const get = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (userLogin) {
+      try {
+        setStatus("loading");
+        const response = await getUser(userLogin);
+        setUser(response.data);
+        setLoginStatus(response.data.message);
+        setStatus("success");
+      } catch (error) {
+        console.log(error)
+        setStatus("error");
+      }
     }
   };
 
-  const create = async (userCreateType: TCreateUser) => {
-    try {
-      setStatus("loading");
-      const user = await createUser(userCreateType);
-      setUser(user);
-      setStatus("success");
-      setLogin(true);
-    } catch (error) {
-      setStatus("error");
-    }
+  const handleLoginChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setUserLogin((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  return { user, setUser, get, create, status, isLogin: login };
+  return {
+    user,
+    setUser,
+    userLogin,
+    handleLoginChange,
+    get,
+    status,
+    loginStatus,
+  };
 }

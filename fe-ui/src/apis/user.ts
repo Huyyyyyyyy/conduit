@@ -13,6 +13,6 @@ export const createUser = async (createUserInput: TCreateUser) => {
 
 export const getUser = async (userLoginInput: TUserLogin) => {
   const response = await axios.post(`${BASE_URL}/auth/sign-in`, userLoginInput);
-  console.log(response.data);
-  return response.data;
+  console.log(response);
+  return response;
 };
