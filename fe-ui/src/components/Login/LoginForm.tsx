@@ -1,9 +1,14 @@
-import { Button, TextField } from "@mui/material";
+import { useContext } from "react";
 import { Form, Link } from "react-router-dom";
-import { useUser } from "../../hooks/useUser";
+import { Button, TextField } from "@mui/material";
+import UserContext from "../../context/UserContext";
 
 const LoginForm = () => {
-  const { get, userLogin, handleLoginChange, status, loginStatus } = useUser();
+  const {
+    data: { userLogin, status, loginStatus },
+    functions: { get, handleLoginChange },
+  } = useContext(UserContext);
+
   return (
     <>
       <h1>Sign in</h1>
@@ -12,7 +17,11 @@ const LoginForm = () => {
           <span>Need an account?</span>
         </Link>
       </p>
-      <p>{status}</p>
+      {loginStatus?.status !== null && loginStatus?.message !== "" ? (
+        <p>
+          code : {loginStatus?.status}, message : {loginStatus?.message}
+        </p>
+      ) : null}
       <Form onSubmit={get}>
         <TextField
           id="outlined-basic email-input"
@@ -35,8 +44,8 @@ const LoginForm = () => {
         <Button
           type="submit"
           disabled={
-            userLogin.email === "" ||
-            userLogin.password === "" ||
+            userLogin?.email === "" ||
+            userLogin?.password === "" ||
             status === "loading"
               ? true
               : false

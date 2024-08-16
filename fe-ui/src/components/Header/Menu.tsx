@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import { CommonProps } from "@mui/material/OverridableComponent";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { TUserLogin } from "../../types/user";
 import UserContext from "../../context/UserContext";
 
 const styleButton: CommonProps = {
@@ -13,15 +12,12 @@ const styleButton: CommonProps = {
   },
 };
 
-const userLogin: TUserLogin = {
-  email: "gia.huy@gmail.com",
-  password: "h0397363542H@",
-};
-
 const Menu = () => {
-  const { user, get, isLogin } = useContext(UserContext);
+  const {
+    data: { user, loginStatus },
+  } = useContext(UserContext);
 
-  return isLogin ? (
+  return loginStatus?.status === 200 ? (
     <>
       <Link to={"/home"}>
         <Button {...styleButton}>Home</Button>
@@ -36,9 +32,7 @@ const Menu = () => {
         <Button {...styleButton}>Home</Button>
       </Link>
       <Link to={"/login"}>
-        <Button {...styleButton} onClick={() => get(userLogin)}>
-          Sign in
-        </Button>
+        <Button {...styleButton}>Sign in</Button>
       </Link>
       <Button {...styleButton}>Sign up</Button>
     </>
