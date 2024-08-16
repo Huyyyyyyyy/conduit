@@ -23,3 +23,11 @@ export type TUserLogin = {
 };
 
 export type TUserStatus = "idle" | "loading" | "error" | "success";
+
+export type TLoginStatus = {
+  status: number | null;
+  message: string | "";
+  data: {
+    accessToken: string;
+  };
+};

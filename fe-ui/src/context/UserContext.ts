@@ -1,20 +1,26 @@
 import { createContext } from "react";
-import { TCreateUser, TUser, TUserLogin, TUserStatus } from "../types/user";
+import {
+  TLoginStatus,
+  TUser,
+  TUserLogin,
+  TUserStatus,
+} from "../types/user";
 
 export type UserContextType = {
-  user: TUser | null;
-  isLogin: Boolean;
-  get: (userLoginType: TUserLogin) => void;
-  create: (userType: TCreateUser) => void;
-  status: TUserStatus;
+  data: {
+    user: TUser | null;
+    status: TUserStatus;
+    loginStatus: TLoginStatus | null;
+    userLogin: TUserLogin | null;
+  };
+  functions: {
+    get: (e : React.FormEvent) => void;
+    handleLoginChange: (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+  };
 };
 
-const UserContext = createContext<UserContextType>({
-  user: null,
-  isLogin: false,
-  get: () => {},
-  create: () => {},
-  status: "idle",
-});
+const UserContext = createContext<UserContextType>(undefined!);
 
 export default UserContext;
