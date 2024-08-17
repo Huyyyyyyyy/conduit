@@ -47,7 +47,17 @@ const RegisterForm = () => {
           value={userRegister.password}
           onChange={handleInputChange}
         />
-        <Button type="submit" disabled={status === "loading" ? true : false}>
+        <Button
+          type="submit"
+          disabled={
+            status === "loading" ||
+            userRegister.email === "" ||
+            userRegister.userName === "" ||
+            userRegister.password === ""
+              ? true
+              : false
+          }
+        >
           {status === "loading" ? "Loading..." : "Sign up"}
         </Button>
       </Form>
