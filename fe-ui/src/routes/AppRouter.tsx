@@ -6,6 +6,7 @@ import {
 import Layout from "../layout/Layout";
 import { HomeRouter } from "./HomeRouter";
 import { LoginRouter } from "./LoginRouter";
+import { RegisterRouter } from "./RegisterRouter";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       },
       HomeRouter,
       LoginRouter,
+      RegisterRouter,
     ],
   },
 ]);

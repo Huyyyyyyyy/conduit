@@ -34,7 +34,9 @@ const Menu = () => {
       <Link to={"/login"}>
         <Button {...styleButton}>Sign in</Button>
       </Link>
-      <Button {...styleButton}>Sign up</Button>
+      <Link to={"/register"}>
+        <Button {...styleButton}>Sign up</Button>
+      </Link>
     </>
   );
 };

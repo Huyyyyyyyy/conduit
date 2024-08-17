@@ -2,13 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsStrongPassword,
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { IsPasswordMatching } from 'src/common/decorator/match.decorator';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -32,7 +30,7 @@ export class CreateUserDto {
   })
   @IsString()
   @IsNotEmpty()
-  @MinLength(1)
+  @MinLength(5)
   @MaxLength(255)
   userName: string;
 
@@ -46,26 +44,6 @@ export class CreateUserDto {
   @IsStrongPassword()
   @IsString()
   @IsNotEmpty()
+  @MinLength(8)
   password: string;
-
-  @ApiProperty({
-    example: 'h0397363542H@',
-    description: 'Confirm password : must be the same with password',
-    uniqueItems: false,
-    nullable: false,
-  })
-  @IsStrongPassword()
-  @IsString()
-  @IsNotEmpty()
-  @IsPasswordMatching('password')
-  confirmPassword: string;
-
-
-  @ApiProperty({
-    example: 'developer',
-    description: 'Put a short bio'
-  })
-  @IsString()
-  @IsOptional()
-  shortBio: string;
 }

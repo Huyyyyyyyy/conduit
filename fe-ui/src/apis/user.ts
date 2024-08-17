@@ -1,14 +1,22 @@
 import axios, { AxiosError } from "axios";
-import { TCreateUser, TUserLogin } from "../types/user";
+import { TUserLogin, TUserRegister } from "../types/user";
 import { BASE_URL } from "../const/const";
 
-export const createUser = async (createUserInput: TCreateUser) => {
-  const response = await axios.post(
-    `${BASE_URL}/user/register`,
-    createUserInput
-  );
-
-  return response.data;
+export const createUser = async (createUserInput: TUserRegister) => {
+  let res;
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/user/register`,
+      createUserInput
+    );
+    if (response.data.status === 200) {
+      res = response;
+    }
+  } catch (error: AxiosError | any) {
+    const errorRes = JSON.parse(error.request.response);
+    res = errorRes;
+  }
+  return res;
 };
 
 export const login = async (userLoginInput: TUserLogin) => {

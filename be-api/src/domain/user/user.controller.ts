@@ -22,15 +22,6 @@ export class UserController {
     return this.userService.register(data);
   }
 
-  @ApiOperationDecorator({
-    summary: 'Get all users success',
-    description: 'Get all users',
-  })
-  @Get('/all-users')
-  allUsers() {
-    return this.userService.findMany();
-  }
-
   @Get('/me')
   getMe(@UserReq() user: User) {
     return user;

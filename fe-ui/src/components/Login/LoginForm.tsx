@@ -13,7 +13,7 @@ const LoginForm = () => {
     <>
       <h1>Sign in</h1>
       <p>
-        <Link to={"/home"}>
+        <Link to={"/register"}>
           <span>Need an account?</span>
         </Link>
       </p>
